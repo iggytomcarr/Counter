@@ -1,7 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func main() {
-	fmt.Println("Hello, word counter!")
+
+	data, _ := os.ReadFile("./words.txt")
+	_ = data
+	fmt.Println("Date in File : " + string(data))
 }

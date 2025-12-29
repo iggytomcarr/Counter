@@ -9,5 +9,23 @@ func main() {
 
 	data, _ := os.ReadFile("./words.txt")
 	_ = data
-	fmt.Println("Date in File : " + string(data))
+	fmt.Println("Data in File : " + string(data))
+	wordCount := countWords(data)
+
+	fmt.Println("Total Words :", wordCount)
+
+}
+
+func countWords(data []byte) int {
+
+	wordCount := 1
+
+	for _, x := range data {
+		if x == ' ' {
+			wordCount++
+		}
+
+	}
+
+	return wordCount
 }

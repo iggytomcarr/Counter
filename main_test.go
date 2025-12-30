@@ -3,39 +3,36 @@ package main
 import "testing"
 
 func TestCountWorlds(t *testing.T) {
-	input := ""
-	wants := 0
 
-	result := countWords([]byte(input))
-
-	if result != wants {
-		t.Log("Failed for input : ", input)
-		t.Log("Wanted : ", wants)
-		t.Log("Got : ", result)
-		t.Fail()
+	type testCase struct {
+		name  string
+		input string
+		wants int
 	}
 
-	input2 := "the little brown fox jumped"
-	wants2 := 5
-
-	result2 := countWords([]byte(input2))
-
-	if result2 != wants2 {
-		t.Log("Failed for input : ", input2)
-		t.Log("Wanted : ", wants2)
-		t.Log("Got : ", result2)
-		t.Fail()
+	testCases := []testCase{
+		{"zero", "", 0},
+		{"five words", "the little brown fox jumped", 5},
+		{"one space, but zero words", " ", 0},
+		{"one word", "one", 1},
+		{"new lines", "one two three\n four five", 5},
+		{"spaces in between", "one  two   three four five", 5},
 	}
 
-	input3 := " "
-	wants3 := 0
+	for _, tc := range testCases {
 
-	result3 := countWords([]byte(input3))
+		t.Run(tc.name, func(t *testing.T) {
+			result := countWords([]byte(tc.input))
 
-	if result3 != wants3 {
-		t.Log("Failed for input : ", input3)
-		t.Log("Wanted : ", wants3)
-		t.Log("Got : ", result3)
-		t.Fail()
+			if result != tc.wants {
+				t.Log("Name : ", tc.name)
+				t.Log("Input : ", tc.input)
+				t.Log("Wanted : ", tc.wants)
+				t.Log("Got : ", result)
+				t.Fail()
+			}
+		})
+
 	}
+
 }
